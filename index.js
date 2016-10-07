@@ -216,7 +216,8 @@ function resolveUrlLoader(content, sourceMap) {
 
           // split into uri and query/hash and then find the absolute path to the uri
           var split    = initialised.split(/([?#])/g),
-              uri      = split[0],
+              uri      = options.replace && options.replace.test && options.replace.value ?
+                  split[0].replace(options.replace.test, options.replace.value) : split[0],
               absolute = uri && findFile.absolute(directory, uri, resolvedRoot),
               query    = options.keepQuery ? split.slice(1).join('') : '';
 
